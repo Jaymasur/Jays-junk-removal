@@ -8,83 +8,190 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
-    .hero {
+    header {
       background-color: #343a40;
       color: white;
-      padding: 60px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
-    .cta {
-      background-color: #ffc107;
-      color: #000;
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover, nav button.active {
+      background-color: #666;
+    }
+    .tab-content {
+      display: none;
       padding: 20px;
-      text-align: center;
-      font-weight: bold;
-      margin: 40px 0;
+      background-color: white;
     }
-    .footer {
+    .tab-content.active {
+      display: block;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+    footer {
       background-color: #f8f9fa;
       padding: 20px;
       text-align: center;
       font-size: 14px;
       color: #6c757d;
-    }
-    .service-item {
-      margin-bottom: 20px;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
-  <header class="hero">
+  <header>
     <h1>Jay's Junk Removal</h1>
     <p class="lead">"Are you in need of a good dump?"</p>
-    <p><strong>Now proudly serving Luzerne and Lackawanna County</strong></p>
-    <p><strong>Call Today:</strong> <a href="tel:5708467988" class="text-warning">(570)-846-7988</a></p>
-    <p><strong>Email:</strong> <a href="mailto:jaysjunkremoval7@gmail.com" class="text-warning">jaysjunkremoval7@gmail.com</a></p>
+    <p><strong>Serving Luzerne and Lackawanna County</strong></p>
+    <p><strong>Phone:</strong> <a href="tel:5708467988" class="text-warning">(570)-846-7988</a> | 
+      <strong>Email:</strong> <a href="mailto:jaysjunkremoval7@gmail.com" class="text-warning">jaysjunkremoval7@gmail.com</a></p>
   </header>
 
-  <main class="container my-5">
-    <section>
-      <h2 class="mb-4 text-center">Our Services</h2>
-      <p class="text-center text-muted"><p> </p>Jay's Junk Removal provides fast, affordable service throughout Luzerne and Lackawanna County. We're your friendly, local team for all things including: House clean outs, junk removal, yard clean up, mulching, and lawn services. <br> </p>Our mission is simple: <br> Offer the best prices with top-notch work ethic, making sure every job is done quickly, efficiently, and with a smile. Whether you're clearing up your home, sprucing up your yard, or just need a hand hauling it all away. Jay's Junk Removal is here to help. <br> <p>
-        
-      </p>Quality service, unbeatable value - that's Jay's way!</p>
-      <div class="row">
-        <div class="col-md-4 service-item">
-          <h5>🏠 Residential Junk Removal</h5>
-          <p>From garage cleanouts to furniture disposal — we've got you covered.</p>
-        </div>
-        <div class="col-md-4 service-item">
-          <h5>🏢 Commercial Cleanouts</h5>
-          <p>Office furniture, construction debris, retail junk — no problem.</p>
-        </div>
-        <div class="col-md-4 service-item">
-          <h5>🌿 Yard Waste Removal</h5>
-          <p>Branches, leaves, and outdoor clutter — we haul it away.</p>
-        </div>
-      </div>
-    </section>
+  <nav>
+    <button class="tab-button active" onclick="showTab('mission')">Mission</button>
+    <button class="tab-button" onclick="showTab('pricing')">Pricing</button>
+    <button class="tab-button" onclick="showTab('terms')">Terms & Conditions</button>
+    <button class="tab-button" onclick="showTab('gallery')">Gallery</button>
+  </nav>
 
-    <section class="cta">
-      Need junk gone fast? <br /> Call <strong>(570)-846-7988</strong> or email <strong>jaysjunkremoval7@gmail.com</strong> for a free estimate today!
-    </section>
+  <!-- Mission Section -->
+  <div id="mission" class="tab-content active container">
+    <h2>Our Mission & Services</h2>
+    <p>At Jay's Junk Removal, our mission is simple: offer the best prices with top-notch work ethic, ensuring every job is completed quickly, efficiently, and with a smile. We pride ourselves on delivering quality service with unbeatable value — that's Jay's way!</p>
 
-    <section class="text-center">
-      <h3>Why Choose Us?</h3>
-      <ul class="list-unstyled">
-        <li>✔️ Fast & Reliable Service</li>
-        <li>✔️ Locally Owned & Operated</li>
-        <li>✔️ Affordable Pricing</li>
-        <li>✔️ Serving Luzerne & Lackawanna County</li>
+    <h3>Areas We Serve</h3>
+    <p>We are proud to serve Luzerne and Lackawanna County, primarily within a 5-mile radius of Wilkes-Barre, PA 18702. Services outside this area may be available upon request with additional charges.</p>
+
+    <h3>What We Do</h3>
+    <ul>
+      <li>🏠 <strong>House Cleanouts</strong> — Full home and garage cleanouts, including furniture, appliances, and household junk.</li>
+      <li>🗑️ <strong>Junk Removal</strong> — We haul away almost anything: unwanted items, clutter, debris, and more.</li>
+      <li>🌿 <strong>Yard Cleanups</strong> — Removal of branches, leaves, and other outdoor debris.</li>
+      <li>🌻 <strong>Mulching</strong> — Beautify your property with fresh mulch installed professionally.</li>
+      <li>🌱 <strong>Lawn Services</strong> — Mowing, trimming, and general yard maintenance.</li>
+    </ul>
+
+    <h3>Why Choose Us?</h3>
+    <ul>
+      <li>✔️ Fast & Reliable Service</li>
+      <li>✔️ Locally Owned & Operated</li>
+      <li>✔️ Affordable Pricing</li>
+      <li>✔️ Friendly, Professional Team</li>
+      <li>✔️ Serving Luzerne & Lackawanna County with pride</li>
+    </ul>
+  </div>
+
+  <!-- Pricing Section -->
+  <div id="pricing" class="tab-content container">
+    <h2>Pricing</h2>
+    <ul>
+      <li>🚚 Single Item Removal: <strong>$60.00</strong></li>
+      <li>🚛 Half Load (Approx. 6 cubic yards): <strong>$300.00</strong></li>
+      <li>🚛 Full Load (Approx. 12 cubic yards): <strong>$350.00</strong></li>
+      <li><em>Additional Fees:</em></li>
+      <ul>
+        <li>• Tires: <strong>$9.00</strong> each</li>
+        <li>• Mattresses: <strong>$30.00</strong> each</li>
       </ul>
-    </section>
-  </main>
+    </ul>
+    <p><strong>Note:</strong> Prices may vary based on item weight, size, and location.</p>
+  </div>
 
-  <footer class="footer">
+  <!-- Terms & Conditions Section -->
+  <div id="terms" class="tab-content container">
+    <h2>Terms and Conditions</h2>
+    <p><strong>Effective Date:</strong> 08/01/2024</p>
+    <p>Welcome to Jay's Junk Removal! By using our junk removal services, you agree to the following Terms and Conditions:</p>
+
+    <h4>1. Service Agreement</h4>
+    <p>Services include the removal of household items, construction debris, and yard waste within a 5-mile radius of Wilkes-Barre, PA. Additional charges may apply outside this area.</p>
+
+    <h4>2. Booking and Scheduling</h4>
+    <p>Appointments require a $50 refundable deposit. Cancellations must be made 24 hours in advance to avoid losing the deposit.</p>
+
+    <h4>3. Pricing and Payment</h4>
+    <p>Pricing based on volume and type of junk. Payment is due upon service completion. Accepted payments: cash, check, CashApp, Paypal.</p>
+
+    <h4>4. Responsibilities and Access</h4>
+    <p>Customers must provide clear access to junk. Extra charges may apply if access is limited.</p>
+
+    <h4>5. Prohibited Items</h4>
+    <p>No hazardous materials, flammable items, or restricted waste will be removed without special arrangements.</p>
+
+    <h4>6. Liability</h4>
+    <p>We are not liable for pre-existing damages. Liability is limited to the service amount paid.</p>
+
+    <h4>7. Cancellation and Refunds</h4>
+    <p>Contact us within 24 hours if unsatisfied. Refunds may be issued at our discretion.</p>
+
+    <h4>8. Privacy and Data Protection</h4>
+    <p>Your personal data is protected and never sold or shared.</p>
+
+    <h4>9. Changes to Terms</h4>
+    <p>We may update terms at any time. The latest version will apply at the time of deposit.</p>
+
+    <h4>10. Governing Law</h4>
+    <p>All disputes will be handled in Pennsylvania courts.</p>
+
+    <h4>11. Contact Information</h4>
+    <p>Jay’s Junk Removal LLC<br>
+       572 Plymouth St, Hanover Township, PA 18706<br>
+       (570) 846-7988<br>
+       jaysjunkremoval7@gmail.com
+    </p>
+  </div>
+
+  <!-- Gallery Section -->
+  <div id="gallery" class="tab-content container">
+    <h2>Gallery: Before & After Jobs</h2>
+    <div class="gallery-grid">
+      <img src="images/job1.jpg" alt="Before and After 1">
+      <img src="images/job2.jpg" alt="Before and After 2">
+      <img src="images/job3.jpg" alt="Before and After 3">
+      <!-- Add more images as needed -->
+    </div>
+  </div>
+
+  <footer>
     &copy; 2025 Jay's Junk Removal. All rights reserved.
   </footer>
+
+  <script>
+    function showTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+      contents.forEach(content => content.classList.remove('active'));
+      buttons.forEach(button => button.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
