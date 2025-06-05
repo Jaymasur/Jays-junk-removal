@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Jay’s Junk Removal Blog</title>
+    <link>https://jaysjunkremovalpa.com</link>
+    <description>Tips on decluttering, recycling, junk removal, and community cleanups in Pennsylvania.</description>
+    <language>en-us</language>
+    <pubDate>Thu, 05 Jun 2025 03:09:12 </pubDate>
+
+    <image>
+      <url>https://jaysjunkremovalpa.com/images/logo.jpg</url>
+      <title>Jay’s Junk Removal</title>
+      <link>https://jaysjunkremovalpa.com</link>
+    </image>
+
+    <item>
+      <title>5 Steps to Declutter Your Home with Jay’s Junk Removal</title>
+      <link>https://jaysjunkremovalpa.com#junk-removal-tips</link>
+      <description>A step-by-step guide to reclaiming your space with our expert junk removal tips.</description>
+      <pubDate>Tue, 04 Jun 2025 12:00:00 EST</pubDate>
+      <guid>https://jaysjunkremovalpa.com#junk-removal-tips</guid>
+    </item>
+
+  </channel>
+</rss>
