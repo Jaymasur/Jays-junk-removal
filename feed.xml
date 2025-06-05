@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jay’s Junk Removal Blog</title>
     <link>https://jaysjunkremovalpa.com</link>
     <description>Tips on decluttering, recycling, junk removal, and community cleanups in Pennsylvania.</description>
     <language>en-us</language>
-    <pubDate>Thu, 05 Jun 2025 03:09:12 </pubDate>
+    <pubDate>Thu, 05 Jun 2025 03:19:23 -0000</pubDate>
+    <lastBuildDate>Thu, 05 Jun 2025 03:19:23 -0000</lastBuildDate>
+    <atom:link href="https://jaysjunkremovalpa.com/feed.xml" rel="self" type="application/rss+xml" />
 
     <image>
       <url>https://jaysjunkremovalpa.com/images/logo.jpg</url>
-      <title>Jay’s Junk Removal</title>
+      <title>Jay’s Junk Removal Blog</title>
       <link>https://jaysjunkremovalpa.com</link>
     </image>
 
@@ -17,7 +19,7 @@
       <title>5 Steps to Declutter Your Home with Jay’s Junk Removal</title>
       <link>https://jaysjunkremovalpa.com#junk-removal-tips</link>
       <description>A step-by-step guide to reclaiming your space with our expert junk removal tips.</description>
-      <pubDate>Tue, 04 Jun 2025 12:00:00 EST</pubDate>
+      <pubDate>Wed, 04 Jun 2025 12:00:00 -0000</pubDate>
       <guid>https://jaysjunkremovalpa.com#junk-removal-tips</guid>
     </item>
 
