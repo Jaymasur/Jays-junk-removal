@@ -167,6 +167,25 @@
     }
   </style>
 </head>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hash = window.location.hash;
+
+    if (hash === "#junk-removal-tips") {
+      const tabTriggerEl = document.querySelector('#articles-tab');
+      if (tabTriggerEl) {
+        const tab = new bootstrap.Tab(tabTriggerEl);
+        tab.show();
+
+        // Scroll to article after tab is shown
+        setTimeout(() => {
+          const target = document.querySelector(hash);
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      }
+    }
+  });
+</script>
 <body>
 
 <div id="cover" style="height: 100vh; background-color: #ECF2F2; display: flex; align-items: center; justify-content: center; position: relative;">
