@@ -147,6 +147,20 @@
         });
       });
     });
+
+    document.querySelectorAll('[data-service-area-name]').forEach((el) => {
+      const trackArea = () => {
+        trackEvent('service_area_click', {
+          location_name: el.dataset.serviceAreaName || ''
+        });
+      };
+      el.addEventListener('click', trackArea);
+      el.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          trackArea();
+        }
+      });
+    });
   }
 
   function setupPricing() {
@@ -220,7 +234,7 @@
   }
 
   async function compressImage(file) {
-    if (!file.type.startsWith('image/') || file.size < 2_000_000) return file;
+    if (!file.type.startsWith('image/') || file.size < 2_000_000 || typeof createImageBitmap !== 'function') return file;
     const imageBitmap = await createImageBitmap(file);
     const canvas = document.createElement('canvas');
     const maxDimension = 1600;
@@ -244,7 +258,6 @@
     const status = form.querySelector('[data-form-status]');
     const submit = form.querySelector('button[type="submit"]');
     const note = document.querySelector('[data-review-note]');
-    const reviewSections = document.querySelectorAll('[data-reviews-section]');
     const reviewGrid = document.querySelector('[data-review-grid]');
     const reviewFeature = document.querySelector('[data-review-feature]');
     const featuredReview = (config.featuredReviews || []).filter((review) => review.quote && review.reviewer);
@@ -273,8 +286,8 @@
         card.innerHTML = `<div class="review-body"><div class="stars" aria-label="Five star review">★★★★★</div><p>“${review.quote}”</p><strong>${review.reviewer}</strong><p>${review.location || 'Verified customer'}</p></div>`;
         reviewGrid.appendChild(card);
       });
-    } else {
-      reviewSections.forEach((section) => section.classList.add('hidden'));
+    } else if (note) {
+      note.classList.add('is-visible');
     }
 
     if (fileInput && previewGrid) {

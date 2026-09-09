@@ -112,6 +112,7 @@
           <a href="#pricing">Pricing</a>
           <a href="#projects">Projects</a>
           <a href="#service-area">Service Areas</a>
+          <a href="#reviews">Reviews</a>
           <a href="#about">About</a>
           <a href="resources/">Resources</a>
           <a href="terms/">Terms</a>
@@ -399,8 +400,8 @@
               <title id="mapTitle">Stylized service area map</title>
               <desc id="mapDesc">A lightweight service area map highlighting Luzerne County and Lackawanna County in Northeastern Pennsylvania.</desc>
               <rect x="0" y="0" width="680" height="420" rx="32" fill="#f4f1e8"></rect>
-              <path class="county" d="M122 112c46-22 110-21 148 10 24 20 45 54 39 91-5 33-30 65-64 83-37 20-92 18-133-5-39-22-71-68-65-112 5-31 28-52 75-67Z" fill="#244934" tabindex="0"></path>
-              <path class="county" d="M365 75c56-18 124-6 170 32 43 35 64 93 47 137-16 43-64 84-122 97-61 13-126-6-165-50-27-30-38-78-28-113 14-49 49-84 98-103Z" fill="#3c6b49" tabindex="0"></path>
+              <path class="county" d="M122 112c46-22 110-21 148 10 24 20 45 54 39 91-5 33-30 65-64 83-37 20-92 18-133-5-39-22-71-68-65-112 5-31 28-52 75-67Z" fill="#244934" tabindex="0" role="button" data-service-area-name="Luzerne County" aria-label="Luzerne County service area"></path>
+              <path class="county" d="M365 75c56-18 124-6 170 32 43 35 64 93 47 137-16 43-64 84-122 97-61 13-126-6-165-50-27-30-38-78-28-113 14-49 49-84 98-103Z" fill="#3c6b49" tabindex="0" role="button" data-service-area-name="Lackawanna County" aria-label="Lackawanna County service area"></path>
               <circle cx="197" cy="202" r="8" fill="#ffffff"></circle>
               <circle cx="420" cy="191" r="8" fill="#ffffff"></circle>
               <text x="155" y="163" fill="#ffffff" font-size="22" font-family="Arial, sans-serif" font-weight="700">Luzerne County</text>
@@ -423,8 +424,8 @@
               <h3>Need help outside those core areas?</h3>
               <p>Call Jay and ask. The previous site already noted that service outside the main service area may still be available depending on the job.</p>
               <div class="cta-row">
-                <a class="btn btn-secondary" href="tel:+15708467988" data-phone data-track-event="service_area_click" data-cta-location="service-area">Call Jay</a>
-                <a class="btn btn-primary" href="#photo-quote" data-track-event="service_area_click" data-cta-location="service-area">Send Photos</a>
+                <a class="btn btn-secondary" href="tel:+15708467988" data-phone data-track-event="location_cta_click" data-cta-location="service-area" data-location-name="Luzerne and Lackawanna Counties">Call Jay</a>
+                <a class="btn btn-primary" href="#photo-quote" data-track-event="location_cta_click" data-cta-location="service-area" data-location-name="Luzerne and Lackawanna Counties">Send Photos</a>
               </div>
             </div>
           </div>
@@ -582,7 +583,7 @@
             <div class="field-full">
               <label for="quote-photos">Photos</label>
               <div class="file-input">
-                <input id="quote-photos" name="photos" type="file" accept="image/*" multiple>
+                <input id="quote-photos" name="photos" type="file" accept="image/*" multiple required>
                 <p class="helper-text">Choose multiple images. Compatible mobile devices can open the camera or photo library naturally from this control.</p>
               </div>
               <div class="preview-grid" data-preview-grid></div>

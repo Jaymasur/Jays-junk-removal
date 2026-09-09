@@ -32,6 +32,7 @@ Update `assets/js/site-config.js` before launch:
 - `googleReviewsUrl` – direct Google reviews/profile URL
 - `featuredReviews` – approved review quote objects for the reviews section
 - `photoQuoteEndpoint` – secure multipart upload endpoint for the photo quote form
+- add any Google Search Console verification tag or verification file directly in the published HTML/root files when provided
 
 ### Photo quote endpoint expectations
 
@@ -57,6 +58,7 @@ Use a secure backend or hosted form service that supports multipart uploads. Do 
 - `google_reviews_click`
 - `service_area_click`
 - `service_cta_click`
+- `location_cta_click`
 - `email_click`
 
 Do not send customer names, phone numbers, email addresses, descriptions, or photo contents to analytics.
