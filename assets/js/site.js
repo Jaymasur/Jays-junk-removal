@@ -287,51 +287,6 @@
       });
     }
 
-    function setupBeforeAfter() {
-      const section = document.querySelector('[data-before-after-section]');
-      if (!section) return;
-      const stage = section.querySelector('[data-before-after-stage]');
-      const beforeImage = section.querySelector('[data-before-image]');
-      const afterImage = section.querySelector('[data-after-image]');
-      const range = section.querySelector('[data-before-after-range]');
-      const title = section.querySelector('[data-before-after-title]');
-      const copy = section.querySelector('[data-before-after-copy]');
-      const servicesLink = section.querySelector('[data-before-after-service-link]');
-      const locationText = section.querySelector('[data-before-after-location]');
-      const pair = (config.beforeAfterProjects || [])[0];
-      if (!pair || !pair.beforeImage || !pair.afterImage) return;
-
-      section.classList.remove('hidden');
-      if (beforeImage) beforeImage.src = pair.beforeImage;
-      if (afterImage) afterImage.src = pair.afterImage;
-      if (beforeImage) beforeImage.alt = pair.beforeAlt || 'Before junk removal photo';
-      if (afterImage) afterImage.alt = pair.afterAlt || 'After junk removal photo';
-      if (title) title.textContent = pair.title || 'Before & After';
-      if (copy) copy.textContent = pair.description || 'A real before-and-after project from Jay’s Junk Removal.';
-      if (locationText) locationText.textContent = pair.location || '';
-      if (servicesLink && pair.serviceUrl) {
-        servicesLink.href = pair.serviceUrl;
-        servicesLink.classList.remove('hidden');
-      }
-
-      const updateSplit = (value) => {
-        const percent = `${value}%`;
-        stage.style.setProperty('--before-after-position', percent);
-        afterImage.style.clipPath = `inset(0 0 0 ${percent})`;
-        stage.querySelector('[data-before-after-divider]').style.left = percent;
-        stage.querySelector('[data-before-after-handle]').style.left = percent;
-      };
-
-      updateSplit(range.value || 50);
-      const track = () => trackEvent('before_after_interaction', {
-        service_name: pair.serviceName || '',
-        location_name: pair.location || ''
-      });
-      range.addEventListener('input', (event) => updateSplit(event.target.value));
-      range.addEventListener('change', track);
-      range.addEventListener('pointerup', track);
-    }
-
     if (featuredReviews.length && reviewGrid && reviewFeature) {
       reviewFeature.classList.remove('hidden');
       const [first, ...rest] = featuredReviews;
@@ -361,6 +316,53 @@
     } else if (reviewCtaCard) {
       reviewCtaCard.classList.remove('hidden');
     }
+  }
+
+  function setupBeforeAfter() {
+    const section = document.querySelector('[data-before-after-section]');
+    if (!section) return;
+    const stage = section.querySelector('[data-before-after-stage]');
+    const beforeImage = section.querySelector('[data-before-image]');
+    const afterImage = section.querySelector('[data-after-image]');
+    const range = section.querySelector('[data-before-after-range]');
+    const title = section.querySelector('[data-before-after-title]');
+    const copy = section.querySelector('[data-before-after-copy]');
+    const servicesLink = section.querySelector('[data-before-after-service-link]');
+    const locationText = section.querySelector('[data-before-after-location]');
+    const divider = stage ? stage.querySelector('[data-before-after-divider]') : null;
+    const handle = stage ? stage.querySelector('[data-before-after-handle]') : null;
+    const pair = (config.beforeAfterProjects || [])[0];
+    if (!pair || !pair.beforeImage || !pair.afterImage || !stage || !beforeImage || !afterImage || !range || !divider || !handle) return;
+
+    section.classList.remove('hidden');
+    beforeImage.src = pair.beforeImage;
+    afterImage.src = pair.afterImage;
+    beforeImage.alt = pair.beforeAlt || 'Before junk removal photo';
+    afterImage.alt = pair.afterAlt || 'After junk removal photo';
+    if (title) title.textContent = pair.title || 'Before & After';
+    if (copy) copy.textContent = pair.description || 'A real before-and-after project from Jay’s Junk Removal.';
+    if (locationText) locationText.textContent = pair.location || '';
+    if (servicesLink && pair.serviceUrl) {
+      servicesLink.href = pair.serviceUrl;
+      servicesLink.classList.remove('hidden');
+    }
+
+    const updateSplit = (value) => {
+      const percent = `${value}%`;
+      stage.style.setProperty('--before-after-position', percent);
+      afterImage.style.clipPath = `inset(0 0 0 ${percent})`;
+      divider.style.left = percent;
+      handle.style.left = percent;
+    };
+
+    updateSplit(range.value || 50);
+    const track = () => trackEvent('before_after_interaction', {
+      service_name: pair.serviceName || '',
+      location_name: pair.location || ''
+    });
+    range.addEventListener('input', (event) => updateSplit(event.target.value));
+    range.addEventListener('change', track);
+    range.addEventListener('pointerup', track);
   }
 
   function setupPhotoQuote() {
