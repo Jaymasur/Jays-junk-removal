@@ -283,7 +283,20 @@
       rest.slice(0, 2).forEach((review) => {
         const card = document.createElement('article');
         card.className = 'review-card';
-        card.innerHTML = `<div class="review-body"><div class="stars" aria-label="Five star review">★★★★★</div><p>“${review.quote}”</p><strong>${review.reviewer}</strong><p>${review.location || 'Verified customer'}</p></div>`;
+        const body = document.createElement('div');
+        body.className = 'review-body';
+        const stars = document.createElement('div');
+        stars.className = 'stars';
+        stars.setAttribute('aria-label', 'Five star review');
+        stars.textContent = '★★★★★';
+        const quote = document.createElement('p');
+        quote.textContent = `“${review.quote}”`;
+        const reviewer = document.createElement('strong');
+        reviewer.textContent = review.reviewer;
+        const location = document.createElement('p');
+        location.textContent = review.location || 'Verified customer';
+        body.append(stars, quote, reviewer, location);
+        card.appendChild(body);
         reviewGrid.appendChild(card);
       });
     } else if (note) {
