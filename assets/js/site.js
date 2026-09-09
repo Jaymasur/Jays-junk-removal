@@ -443,8 +443,9 @@
     setupPhotoQuote();
 
     document.querySelectorAll('[data-email]').forEach((el) => {
-      el.textContent = config.email || 'jaysjunkremoval7@gmail.com';
-      el.setAttribute('href', config.emailHref || `mailto:${config.email}`);
+      const emailValue = config.email || 'jaysjunkremoval7@gmail.com';
+      if (!el.textContent.trim() || el.textContent.includes('@')) el.textContent = emailValue;
+      el.setAttribute('href', config.emailHref || `mailto:${emailValue}`);
     });
 
     document.querySelectorAll('[data-phone]').forEach((el) => {
