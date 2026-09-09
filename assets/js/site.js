@@ -226,7 +226,12 @@
     card.className = 'preview-card';
     const image = document.createElement('img');
     const previewUrl = URL.createObjectURL(file);
-    image.src = previewUrl;
+    const safePreviewUrl = new URL(previewUrl, window.location.href);
+    if (safePreviewUrl.protocol !== 'blob:') {
+      URL.revokeObjectURL(previewUrl);
+      return card;
+    }
+    image.src = safePreviewUrl.href;
     image.alt = file.name;
     const label = document.createElement('span');
     label.textContent = file.name;
