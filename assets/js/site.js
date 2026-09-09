@@ -449,7 +449,7 @@
     });
 
     document.querySelectorAll('[data-phone]').forEach((el) => {
-      el.textContent = config.phoneDisplay || '(570) 846-7988';
+      if (!el.textContent.trim() || /\d/.test(el.textContent)) el.textContent = config.phoneDisplay || '(570) 846-7988';
       el.setAttribute('href', config.phoneHref || 'tel:+15708467988');
     });
   });
