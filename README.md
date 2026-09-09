@@ -1,78 +1,62 @@
-Jay's Junk Removal – Website
+# Jay's Junk Removal – Website
 
-This repository contains the full source code for the official website of Jay's Junk Removal, a locally owned junk removal and landscaping service based in Hanover Township, Pennsylvania. The site is built using HTML, CSS, Bootstrap 5, and vanilla JavaScript, and is optimized for both desktop and mobile users.
+This repository contains the source for the official Jay's Junk Removal website.
 
-👉 Live Website: https://jaysjunkremovalpa.com
+## Stack
 
-👉 Developer Portfolio (Masur Consultant Services): https://jaymasur.github.io/MCS/
+- Static HTML
+- Shared CSS in `assets/css/styles.css`
+- Vanilla JavaScript in `assets/js/site.js`
+- GitHub Pages deployment with `CNAME`
 
-🚀 About This Project
+## Page structure
 
-This website was created to provide customers with a clean, modern, and mobile-friendly way to:
+- `/` – lead-generation homepage
+- `/junk-removal/` – service page
+- `/house-cleanouts/` – service page
+- `/resources/` – article/resource page
+- `/terms/` – terms and conditions
 
-Learn about available services
+## Content and business rules
 
-View pricing and terms
+- The public street address is intentionally omitted from the site.
+- Service-area positioning focuses on Luzerne County, Lackawanna County, Wilkes-Barre, and Hanover Township.
+- Real photography from `/images` is reused throughout the site.
+- Existing Terms & Conditions and article content are preserved, with service-area/address updates required by the redesign brief.
 
-Explore a gallery of past work
+## Required configuration
 
-Read helpful articles and tips
+Update `assets/js/site-config.js` before launch:
 
-Contact Jay's Junk Removal directly
+- `gaMeasurementId` – Google Analytics 4 Measurement ID
+- `googleReviewsUrl` – direct Google reviews/profile URL
+- `featuredReviews` – approved review quote objects for the reviews section
+- `photoQuoteEndpoint` – secure multipart upload endpoint for the photo quote form
 
-Easily navigate through a tab-based UI with responsive navigation
+### Photo quote endpoint expectations
 
-The project is designed to be fast, simple, and SEO-friendly.
+The website is hosted on GitHub Pages, so file uploads need an external endpoint. The current front end expects a `POST` multipart endpoint that can accept:
 
-🧰 Technologies Used
+- `name`
+- `phone`
+- `email`
+- `town_or_zip`
+- `description`
+- one or more `photos`
 
-HTML5
+Use a secure backend or hosted form service that supports multipart uploads. Do not add secrets or email credentials to public JavaScript.
 
-CSS3 (custom + Bootstrap 5 styling)
+## Analytics events already wired in the front end
 
-Bootstrap 5.3
+- `call_click`
+- `photo_quote_start`
+- `photo_quote_submit`
+- `quote_click`
+- `pricing_tier_select`
+- `junk_estimator_use`
+- `google_reviews_click`
+- `service_area_click`
+- `service_cta_click`
+- `email_click`
 
-JavaScript (vanilla)
-
-JSON-LD Structured Data for SEO
-
-OpenGraph Meta Tags
-
-Mobile-first responsive design
-
-📦 Features Overview
-✔ Interactive Tab-Based Navigation
-
-Users can switch between content sections (Home, Pricing, Terms, Gallery, About Us, Articles) without loading a new page.
-
-✔ Full-Screen Logo Cover Intro
-
-A branded introduction screen with a button that smoothly transitions into the site.
-
-✔ Complete SEO Setup
-
-Includes:
-
-LocalBusiness schema (JSON-LD)
-
-Article schema (JSON-LD)
-
-OpenGraph tags for social media sharing
-
-Mobile-responsive viewport settings
-
-✔ Gallery Section
-
-Grid-based responsive image gallery using CSS grid.
-
-✔ Pricing & Landscaping Section
-
-Clear pricing structure with mulch service estimates and surcharge details.
-
-✔ Articles/Blog System
-
-Includes an article ("5 Steps to Declutter Your Home") with smooth scroll and tab activation logic.
-
-✔ Footer with Social Media Links
-
-Links to Facebook, Nextdoor, Instagram, and developer credit.
+Do not send customer names, phone numbers, email addresses, descriptions, or photo contents to analytics.
