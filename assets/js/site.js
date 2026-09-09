@@ -7,8 +7,8 @@
       shortLabel: '1/4',
       fill: 25,
       price: '$275',
-      volume: 'About 5 cubic yards',
-      weight: 'About 1,000 lb included',
+      volume: 'Approximately 5 cubic yards',
+      weight: 'Approximately 1,000 lb included',
       example: 'A small cleanout, a couch and chair with bags and boxes, a mattress set, or several miscellaneous household items.'
     },
     {
@@ -17,8 +17,8 @@
       shortLabel: '1/3',
       fill: 33,
       price: '$350',
-      volume: 'About 6.7 cubic yards',
-      weight: 'About 1,300 lb included',
+      volume: 'Approximately 6.7 cubic yards',
+      weight: 'Approximately 1,300 lb included',
       example: 'Several furniture pieces with boxes or bags, or a larger single-room cleanout.'
     },
     {
@@ -37,8 +37,8 @@
       shortLabel: '2/3',
       fill: 67,
       price: '$650',
-      volume: 'About 13.3 cubic yards',
-      weight: 'About 2,650 lb included',
+      volume: 'Approximately 13.3 cubic yards',
+      weight: 'Approximately 2,650 lb included',
       example: 'A substantial garage or basement cleanout, or several rooms of household items.'
     },
     {
@@ -48,8 +48,8 @@
       fill: 75,
       price: '$775',
       volume: '15 cubic yards',
-      weight: '1½ tons / 3,000 lb included',
-      example: 'A large cleanout with furniture, appliances, boxes, and mixed junk.'
+      weight: '1.5 tons / 3,000 lb included',
+      example: 'A large cleanout with furniture, appliances, boxes, bags, and mixed junk.'
     },
     {
       id: 'full',
@@ -76,8 +76,7 @@
   }
 
   function loadAnalytics() {
-    if (!isConfigured(config.gaMeasurementId)) return;
-    if (window.gtag) return;
+    if (!isConfigured(config.gaMeasurementId) || window.gtag) return;
 
     const script = document.createElement('script');
     script.async = true;
@@ -103,9 +102,7 @@
     if (!query) return;
     document.querySelectorAll('a[href]').forEach((link) => {
       const href = link.getAttribute('href');
-      if (!href || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('//') || href.startsWith('#')) {
-        return;
-      }
+      if (!href || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http') || href.startsWith('//') || href.startsWith('#')) return;
       if (href.includes('?')) return;
       const [path, hash = ''] = href.split('#');
       link.setAttribute('href', `${path}${query}${hash ? `#${hash}` : ''}`);
@@ -116,11 +113,13 @@
     const header = document.querySelector('[data-site-header]');
     const toggle = document.querySelector('[data-menu-toggle]');
     const nav = document.querySelector('[data-site-nav]');
+
     if (toggle && nav) {
       toggle.addEventListener('click', () => {
         const isOpen = nav.classList.toggle('is-open');
         toggle.setAttribute('aria-expanded', String(isOpen));
       });
+
       nav.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
           nav.classList.remove('is-open');
@@ -130,9 +129,9 @@
     }
 
     const updateHeader = () => {
-      if (!header) return;
-      header.classList.toggle('is-scrolled', window.scrollY > 18);
+      if (header) header.classList.toggle('is-scrolled', window.scrollY > 18);
     };
+
     updateHeader();
     window.addEventListener('scroll', updateHeader, { passive: true });
   }
@@ -156,9 +155,7 @@
       };
       el.addEventListener('click', trackArea);
       el.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          trackArea();
-        }
+        if (event.key === 'Enter' || event.key === ' ') trackArea();
       });
     });
   }
@@ -173,12 +170,14 @@
     const tierVolume = document.querySelector('[data-pricing-volume]');
     const tierWeight = document.querySelector('[data-pricing-weight]');
     const tierExample = document.querySelector('[data-pricing-example]');
+    const buttons = Array.from(controls.querySelectorAll('button[data-tier]'));
 
     function applyTier(id) {
       const tier = pricingTiers.find((item) => item.id === id) || pricingTiers[2];
-      controls.querySelectorAll('button').forEach((button) => {
-        button.classList.toggle('is-active', button.dataset.tier === tier.id);
-        button.setAttribute('aria-pressed', String(button.dataset.tier === tier.id));
+      buttons.forEach((button) => {
+        const active = button.dataset.tier === tier.id;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
       });
       if (fill) fill.style.height = `${tier.fill}%`;
       if (tierName) tierName.textContent = tier.label;
@@ -191,8 +190,17 @@
 
     controls.addEventListener('click', (event) => {
       const button = event.target.closest('button[data-tier]');
-      if (!button) return;
-      applyTier(button.dataset.tier);
+      if (button) applyTier(button.dataset.tier);
+    });
+
+    controls.addEventListener('keydown', (event) => {
+      const currentIndex = buttons.findIndex((button) => button.classList.contains('is-active'));
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      event.preventDefault();
+      const direction = event.key === 'ArrowRight' ? 1 : -1;
+      const nextIndex = (currentIndex + direction + buttons.length) % buttons.length;
+      buttons[nextIndex].focus();
+      applyTier(buttons[nextIndex].dataset.tier);
     });
 
     applyTier('half');
@@ -251,40 +259,82 @@
     canvas.width = Math.round(imageBitmap.width * scale);
     canvas.height = Math.round(imageBitmap.height * scale);
     const context = canvas.getContext('2d');
+    if (!context) return file;
     context.drawImage(imageBitmap, 0, 0, canvas.width, canvas.height);
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
-    return new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' });
+    return blob ? new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }) : file;
   }
 
-  function setupPhotoQuote() {
-    const form = document.querySelector('[data-photo-quote-form]');
-    if (!form) return;
+  function setupReviews() {
+    const reviewSection = document.querySelector('[data-reviews-section]');
+    if (!reviewSection) return;
 
-    const endpointNotice = document.querySelector('[data-photo-endpoint-notice]');
-    const reviewsLinks = document.querySelectorAll('[data-google-reviews-link]');
-    const fileInput = form.querySelector('input[type="file"]');
-    const previewGrid = form.querySelector('[data-preview-grid]');
-    const status = form.querySelector('[data-form-status]');
-    const submit = form.querySelector('button[type="submit"]');
-    const note = document.querySelector('[data-review-note]');
-    const reviewGrid = document.querySelector('[data-review-grid]');
-    const reviewFeature = document.querySelector('[data-review-feature]');
-    const featuredReview = (config.featuredReviews || []).filter((review) => review.quote && review.reviewer);
+    const reviewButtons = reviewSection.querySelectorAll('[data-google-reviews-link]');
+    const reviewGrid = reviewSection.querySelector('[data-review-grid]');
+    const reviewFeature = reviewSection.querySelector('[data-review-feature]');
+    const reviewCtaCard = reviewSection.querySelector('[data-review-cta-card]');
+    const featuredReviews = (config.featuredReviews || []).filter((review) => review.quote && review.reviewer);
+    const hasReviewsUrl = isConfigured(config.googleReviewsUrl);
 
-    if (!isConfigured(config.photoQuoteEndpoint) && endpointNotice) {
-      endpointNotice.classList.remove('hidden');
+    if (!hasReviewsUrl && !featuredReviews.length) return;
+
+    reviewSection.classList.remove('hidden');
+
+    if (hasReviewsUrl) {
+      reviewButtons.forEach((link) => {
+        link.classList.remove('hidden');
+        link.setAttribute('href', config.googleReviewsUrl);
+      });
     }
 
-    if (isConfigured(config.googleReviewsUrl)) {
-      reviewsLinks.forEach((link) => link.setAttribute('href', config.googleReviewsUrl));
-    } else {
-      reviewsLinks.forEach((link) => link.classList.add('hidden'));
-      if (note) note.classList.add('is-visible');
+    function setupBeforeAfter() {
+      const section = document.querySelector('[data-before-after-section]');
+      if (!section) return;
+      const stage = section.querySelector('[data-before-after-stage]');
+      const beforeImage = section.querySelector('[data-before-image]');
+      const afterImage = section.querySelector('[data-after-image]');
+      const range = section.querySelector('[data-before-after-range]');
+      const title = section.querySelector('[data-before-after-title]');
+      const copy = section.querySelector('[data-before-after-copy]');
+      const servicesLink = section.querySelector('[data-before-after-service-link]');
+      const locationText = section.querySelector('[data-before-after-location]');
+      const pair = (config.beforeAfterProjects || [])[0];
+      if (!pair || !pair.beforeImage || !pair.afterImage) return;
+
+      section.classList.remove('hidden');
+      if (beforeImage) beforeImage.src = pair.beforeImage;
+      if (afterImage) afterImage.src = pair.afterImage;
+      if (beforeImage) beforeImage.alt = pair.beforeAlt || 'Before junk removal photo';
+      if (afterImage) afterImage.alt = pair.afterAlt || 'After junk removal photo';
+      if (title) title.textContent = pair.title || 'Before & After';
+      if (copy) copy.textContent = pair.description || 'A real before-and-after project from Jay’s Junk Removal.';
+      if (locationText) locationText.textContent = pair.location || '';
+      if (servicesLink && pair.serviceUrl) {
+        servicesLink.href = pair.serviceUrl;
+        servicesLink.classList.remove('hidden');
+      }
+
+      const updateSplit = (value) => {
+        const percent = `${value}%`;
+        stage.style.setProperty('--before-after-position', percent);
+        afterImage.style.clipPath = `inset(0 0 0 ${percent})`;
+        stage.querySelector('[data-before-after-divider]').style.left = percent;
+        stage.querySelector('[data-before-after-handle]').style.left = percent;
+      };
+
+      updateSplit(range.value || 50);
+      const track = () => trackEvent('before_after_interaction', {
+        service_name: pair.serviceName || '',
+        location_name: pair.location || ''
+      });
+      range.addEventListener('input', (event) => updateSplit(event.target.value));
+      range.addEventListener('change', track);
+      range.addEventListener('pointerup', track);
     }
 
-    if (featuredReview.length && reviewGrid && reviewFeature) {
+    if (featuredReviews.length && reviewGrid && reviewFeature) {
       reviewFeature.classList.remove('hidden');
-      const [first, ...rest] = featuredReview;
+      const [first, ...rest] = featuredReviews;
       const featureText = reviewFeature.querySelector('[data-featured-review-text]');
       const featureReviewer = reviewFeature.querySelector('[data-featured-reviewer]');
       if (featureText) featureText.textContent = first.quote;
@@ -308,9 +358,22 @@
         card.appendChild(body);
         reviewGrid.appendChild(card);
       });
-    } else if (note) {
-      note.classList.add('is-visible');
+    } else if (reviewCtaCard) {
+      reviewCtaCard.classList.remove('hidden');
     }
+  }
+
+  function setupPhotoQuote() {
+    const form = document.querySelector('[data-photo-quote-form]');
+    if (!form) return;
+
+    const endpointNotice = document.querySelector('[data-photo-endpoint-notice]');
+    const fileInput = form.querySelector('input[type="file"]');
+    const previewGrid = form.querySelector('[data-preview-grid]');
+    const status = form.querySelector('[data-form-status]');
+    const submit = form.querySelector('button[type="submit"]');
+
+    if (!isConfigured(config.photoQuoteEndpoint) && endpointNotice) endpointNotice.classList.remove('hidden');
 
     if (fileInput && previewGrid) {
       fileInput.addEventListener('change', () => {
@@ -318,7 +381,7 @@
         Array.from(fileInput.files || []).slice(0, 6).forEach((file) => {
           previewGrid.appendChild(createPreviewCard(file));
         });
-        trackEvent('photo_quote_start', { cta_location: 'photo-quote-form' });
+        if ((fileInput.files || []).length) trackEvent('photo_quote_start', { cta_location: 'photo-quote-form' });
       });
     }
 
@@ -339,7 +402,7 @@
         const payload = new FormData();
         const fields = new FormData(form);
         for (const [key, value] of fields.entries()) {
-          if (key !== 'photos') payload.append(key, value);
+          if (key !== 'photos' && value) payload.append(key, value);
         }
 
         const rawFiles = Array.from(fileInput.files || []).slice(0, 6);
@@ -354,14 +417,14 @@
 
         if (!response.ok) throw new Error('Upload failed');
         form.reset();
-        if (previewGrid) previewGrid.innerHTML = '';
+        previewGrid.innerHTML = '';
         status.textContent = config.photoQuoteSuccessMessage || 'Thanks for sending your photos.';
         trackEvent('photo_quote_submit', { cta_location: 'photo-quote-form' });
       } catch (error) {
         status.textContent = 'There was a problem sending the request. Please call Jay or try again after the upload endpoint is configured.';
       } finally {
         submit.disabled = false;
-        submit.textContent = 'Send photos to Jay';
+        submit.textContent = 'Send Photos';
       }
     });
   }
@@ -373,12 +436,15 @@
     setupTrackingLinks();
     setupPricing();
     setupEstimator();
+    setupReviews();
+    setupBeforeAfter();
     setupPhotoQuote();
 
     document.querySelectorAll('[data-email]').forEach((el) => {
       el.textContent = config.email || 'jaysjunkremoval7@gmail.com';
       el.setAttribute('href', config.emailHref || `mailto:${config.email}`);
     });
+
     document.querySelectorAll('[data-phone]').forEach((el) => {
       el.textContent = config.phoneDisplay || '(570) 846-7988';
       el.setAttribute('href', config.phoneHref || 'tel:+15708467988');

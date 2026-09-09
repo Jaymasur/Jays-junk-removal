@@ -9,5 +9,6 @@ window.JJR_CONFIG = {
   googleReviewsUrl: '',
   photoQuoteEndpoint: '',
   photoQuoteSuccessMessage: 'Thanks for reaching out. Jay will review your photos and follow up as soon as possible.',
-  featuredReviews: []
+  featuredReviews: [],
+  beforeAfterProjects: []
 };
