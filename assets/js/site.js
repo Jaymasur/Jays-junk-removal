@@ -221,14 +221,18 @@
     });
   }
 
-  function createPreviewCard(file, url) {
+  function createPreviewCard(file) {
     const card = document.createElement('div');
     card.className = 'preview-card';
     const image = document.createElement('img');
-    image.src = url;
+    const previewUrl = URL.createObjectURL(file);
+    image.src = previewUrl;
     image.alt = file.name;
     const label = document.createElement('span');
     label.textContent = file.name;
+    image.addEventListener('load', () => {
+      URL.revokeObjectURL(previewUrl);
+    }, { once: true });
     card.append(image, label);
     return card;
   }
@@ -307,8 +311,7 @@
       fileInput.addEventListener('change', () => {
         previewGrid.innerHTML = '';
         Array.from(fileInput.files || []).slice(0, 6).forEach((file) => {
-          const url = URL.createObjectURL(file);
-          previewGrid.appendChild(createPreviewCard(file, url));
+          previewGrid.appendChild(createPreviewCard(file));
         });
         trackEvent('photo_quote_start', { cta_location: 'photo-quote-form' });
       });
