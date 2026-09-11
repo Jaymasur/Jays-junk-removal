@@ -1,70 +1,78 @@
-# Jay's Junk Removal – Website
+Jay's Junk Removal – Website
 
-This repository contains the source for the official Jay's Junk Removal website.
+This repository contains the full source code for the official website of Jay's Junk Removal, a locally owned junk removal and landscaping service based in Hanover Township, Pennsylvania. The site is built using HTML, CSS, Bootstrap 5, and vanilla JavaScript, and is optimized for both desktop and mobile users.
 
-## Stack
+👉 Live Website: https://jaysjunkremovalpa.com
 
-- Static HTML
-- Shared CSS in `assets/css/styles.css`
-- Vanilla JavaScript in `assets/js/site.js`
-- GitHub Pages deployment with `CNAME`
+👉 Developer Portfolio (Masur Consultant Services): https://jaymasur.github.io/MCS/
 
-## Page structure
+🚀 About This Project
 
-- `/` – junk-removal-first lead-generation homepage
-- `/junk-removal/` – primary service pillar
-- `/house-cleanouts/` – supporting cleanout page
-- `/yard-cleanup/` – secondary outdoor cleanup and material services page
-- `/resources/` – article/resource page
-- `/terms/` – terms and conditions
+This website was created to provide customers with a clean, modern, and mobile-friendly way to:
 
-## Content and business rules
+Learn about available services
 
-- The public street address is intentionally omitted from the site.
-- Junk removal is the primary business and SEO focus.
-- Service-area positioning focuses on Wilkes-Barre, Luzerne County, Lackawanna County, and Northeastern Pennsylvania.
-- Real photography from `/images` is reused throughout the site.
-- Existing Terms & Conditions and article content are preserved, with service-area/address updates required by the redesign brief.
-- Outdoor services remain secondary and include yard debris cleanup, brush cleanup, mulch, and decorative stone support.
-- The site should not position the business as providing lawn mowing, grass cutting, weekly lawn service, or routine lawn maintenance.
+View pricing and terms
 
-## Required configuration
+Explore a gallery of past work
 
-Update `assets/js/site-config.js` before launch:
+Read helpful articles and tips
 
-- `gaMeasurementId` – Google Analytics 4 Measurement ID
-- `googleReviewsUrl` – direct Google reviews/profile URL
-- `featuredReviews` – approved review quote objects for the reviews section
-- `beforeAfterProjects` – approved before/after image pair data for the optional comparison component
-- `photoQuoteEndpoint` – secure multipart upload endpoint for the photo quote form
-- add any Google Search Console verification tag or verification file directly in the published HTML/root files when provided
+Contact Jay's Junk Removal directly
 
-### Photo quote endpoint expectations
+Easily navigate through a tab-based UI with responsive navigation
 
-The website is hosted on GitHub Pages, so file uploads need an external endpoint. The current front end expects a `POST` multipart endpoint that can accept:
+The project is designed to be fast, simple, and SEO-friendly.
 
-- `name`
-- `phone`
-- `email`
-- `town_or_zip`
-- `description`
-- one or more `photos`
+🧰 Technologies Used
 
-Use a secure backend or hosted form service that supports multipart uploads. Do not add secrets or email credentials to public JavaScript.
+HTML5
 
-## Analytics events already wired in the front end
+CSS3 (custom + Bootstrap 5 styling)
 
-- `call_click`
-- `photo_quote_start`
-- `photo_quote_submit`
-- `quote_click`
-- `pricing_tier_select`
-- `junk_estimator_use`
-- `google_reviews_click`
-- `service_area_click`
-- `service_cta_click`
-- `location_cta_click`
-- `before_after_interaction`
-- `email_click`
+Bootstrap 5.3
 
-Do not send customer names, phone numbers, email addresses, descriptions, or photo contents to analytics.
+JavaScript (vanilla)
+
+JSON-LD Structured Data for SEO
+
+OpenGraph Meta Tags
+
+Mobile-first responsive design
+
+📦 Features Overview
+✔ Interactive Tab-Based Navigation
+
+Users can switch between content sections (Home, Pricing, Terms, Gallery, About Us, Articles) without loading a new page.
+
+✔ Full-Screen Logo Cover Intro
+
+A branded introduction screen with a button that smoothly transitions into the site.
+
+✔ Complete SEO Setup
+
+Includes:
+
+LocalBusiness schema (JSON-LD)
+
+Article schema (JSON-LD)
+
+OpenGraph tags for social media sharing
+
+Mobile-responsive viewport settings
+
+✔ Gallery Section
+
+Grid-based responsive image gallery using CSS grid.
+
+✔ Pricing & Landscaping Section
+
+Clear pricing structure with mulch service estimates and surcharge details.
+
+✔ Articles/Blog System
+
+Includes an article ("5 Steps to Declutter Your Home") with smooth scroll and tab activation logic.
+
+✔ Footer with Social Media Links
+
+Links to Facebook, Nextdoor, Instagram, and developer credit.
