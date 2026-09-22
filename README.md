@@ -1,70 +1,53 @@
-# Jay's Junk Removal – Website
+# Jay’s Junk Removal
 
-This repository contains the source for the official Jay's Junk Removal website.
+Official website source for [jaysjunkremovalpa\.com](https://jaysjunkremovalpa.com)\.
 
-## Stack
+Jay’s Junk Removal provides full\-service junk removal, property cleanouts, furniture and appliance removal, construction debris removal, yard\-debris cleanup, and supporting outdoor property services throughout Wilkes\-Barre, Hanover Township, Luzerne County, Lackawanna County, and nearby Northeastern Pennsylvania communities\.
 
-- Static HTML
-- Shared CSS in `assets/css/styles.css`
-- Vanilla JavaScript in `assets/js/site.js`
-- GitHub Pages deployment with `CNAME`
+## Contact
 
-## Page structure
+- Phone: [&#40;570&#41; 846\-7988](tel:+15708467988)
+- Email: [jaysjunkremoval7@gmail\.com](mailto:jaysjunkremoval7@gmail.com)
+- Website: [jaysjunkremovalpa\.com](https://jaysjunkremovalpa.com)
+- Facebook: [Jay’s Junk Removal](https://www.facebook.com/people/Jays-Junk-Removal/61575634836995/)
+- Instagram: [@jaysjunkremovalpa](https://www.instagram.com/jaysjunkremovalpa/)
 
-- `/` – junk-removal-first lead-generation homepage
-- `/junk-removal/` – primary service pillar
-- `/house-cleanouts/` – supporting cleanout page
-- `/yard-cleanup/` – secondary outdoor cleanup and material services page
-- `/resources/` – article/resource page
-- `/terms/` – terms and conditions
+## Website sections
 
-## Content and business rules
+- Home and service information
+- Interactive 20\-yard trailer pricing
+- Mobile photo\-quote workflow
+- Project gallery
+- Customer testimonials
+- About Jay’s Junk Removal
+- Helpful articles
+- Terms and conditions
 
-- The public street address is intentionally omitted from the site.
-- Junk removal is the primary business and SEO focus.
-- Service-area positioning focuses on Wilkes-Barre, Luzerne County, Lackawanna County, and Northeastern Pennsylvania.
-- Real photography from `/images` is reused throughout the site.
-- Existing Terms & Conditions and article content are preserved, with service-area/address updates required by the redesign brief.
-- Outdoor services remain secondary and include yard debris cleanup, brush cleanup, mulch, and decorative stone support.
-- The site should not position the business as providing lawn mowing, grass cutting, weekly lawn service, or routine lawn maintenance.
+## Publishing with GitHub Pages
 
-## Required configuration
+This repository is a static website and does not require a build command\.
 
-Update `assets/js/site-config.js` before launch:
+1. Place `index.html`, `CNAME`, `robots.txt`, `sitemap.xml`, all page folders, and the complete `assets` folder in the repository root\.
+2. In the repository, open **Settings → Pages**\.
+3. Publish from the `main` branch and the `/ (root)` folder\.
+4. Set the custom domain to `jaysjunkremovalpa.com`\.
+5. Enable **Enforce HTTPS** after GitHub completes its domain check\.
+6. Confirm that `www.jaysjunkremovalpa.com` redirects to `jaysjunkremovalpa.com` instead of serving a separate copy\.
 
-- `gaMeasurementId` – Google Analytics 4 Measurement ID
-- `googleReviewsUrl` – direct Google reviews/profile URL
-- `featuredReviews` – approved review quote objects for the reviews section
-- `beforeAfterProjects` – approved before/after image pair data for the optional comparison component
-- `photoQuoteEndpoint` – secure multipart upload endpoint for the photo quote form
-- add any Google Search Console verification tag or verification file directly in the published HTML/root files when provided
+The uppercase `CNAME` file must remain in the repository root and contain only:
 
-### Photo quote endpoint expectations
+```text
+jaysjunkremovalpa.com
+```
 
-The website is hosted on GitHub Pages, so file uploads need an external endpoint. The current front end expects a `POST` multipart endpoint that can accept:
+## Search and analytics
 
-- `name`
-- `phone`
-- `email`
-- `town_or_zip`
-- `description`
-- one or more `photos`
+- Canonical URLs use `https://jaysjunkremovalpa.com/`\.
+- `robots.txt` allows crawling and identifies the sitemap\.
+- `sitemap.xml` lists the site’s public pages\.
+- Google Analytics 4 tracks website activity\.
+- After publishing major updates, submit `https://jaysjunkremovalpa.com/sitemap.xml` through Google Search Console and request indexing for the homepage\.
 
-Use a secure backend or hosted form service that supports multipart uploads. Do not add secrets or email credentials to public JavaScript.
+## Website credit
 
-## Analytics events already wired in the front end
-
-- `call_click`
-- `photo_quote_start`
-- `photo_quote_submit`
-- `quote_click`
-- `pricing_tier_select`
-- `junk_estimator_use`
-- `google_reviews_click`
-- `service_area_click`
-- `service_cta_click`
-- `location_cta_click`
-- `before_after_interaction`
-- `email_click`
-
-Do not send customer names, phone numbers, email addresses, descriptions, or photo contents to analytics.
+Created by [Masur Consultant Services](https://jaymasur.github.io/MCS/)\.
