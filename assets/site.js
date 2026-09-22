@@ -30,30 +30,38 @@ const itemExamples=document.querySelector('#itemExamples');
 const topTier=document.querySelector('#topTier');
 const topPrice=document.querySelector('#topPrice');
 const topDetail=document.querySelector('#topDetail');
-tierButtons.forEach(button=>button.addEventListener('click',()=>{
-  tierButtons.forEach(item=>item.classList.remove('active'));
-  button.classList.add('active');
-  const tier=button.dataset.tier;
-  const price=button.dataset.price;
-  selectedTier.textContent=tier;
-  selectedPrice.textContent=`$${price}`;
-  selectedDetail.textContent=button.dataset.detail;
-  topTier.textContent=tier.toUpperCase();
-  topPrice.textContent=`$${price}`;
-  topDetail.textContent=button.dataset.detail.toUpperCase();
-  loadFill.style.width=`${button.dataset.fill}%`;
-  itemExamples.replaceChildren(...button.dataset.items.split('|').map(item=>{
-    const [icon,...words]=item.split(' ');
-    const example=document.createElement('span');
-    example.append(icon+' ');
-    const label=document.createElement('small');
-    label.textContent=words.join(' ');
-    example.append(label);
-    return example;
-  }));
-  const message=`Hi Jay, I'm interested in the ${tier} option starting at $${price}. I'll send photos for a quote.`;
-  priceText.href=`sms:+15708467988?body=${encodeURIComponent(message)}`;
-}));
+if(tierButtons.length&&selectedTier&&selectedPrice&&selectedDetail&&loadFill&&priceText&&itemExamples&&topTier&&topPrice&&topDetail){
+  const setTierSelection=button=>{
+    tierButtons.forEach(item=>{
+      const active=item===button;
+      item.classList.toggle('active',active);
+      item.setAttribute('aria-pressed',String(active));
+    });
+    const tier=button.dataset.tier;
+    const price=button.dataset.price;
+    selectedTier.textContent=tier;
+    selectedPrice.textContent=`$${price}`;
+    selectedDetail.textContent=button.dataset.detail;
+    topTier.textContent=tier.toUpperCase();
+    topPrice.textContent=`$${price}`;
+    topDetail.textContent=button.dataset.detail.toUpperCase();
+    loadFill.style.width=`${button.dataset.fill}%`;
+    itemExamples.replaceChildren(...button.dataset.items.split('|').map(item=>{
+      const [icon,...words]=item.split(' ');
+      const example=document.createElement('span');
+      example.append(icon+' ');
+      const label=document.createElement('small');
+      label.textContent=words.join(' ');
+      example.append(label);
+      return example;
+    }));
+    const message=`Hi Jay, I'm interested in the ${tier} option starting at $${price}. I'll send photos for a quote.`;
+    priceText.href=`sms:+15708467988?body=${encodeURIComponent(message)}`;
+  };
+  tierButtons.forEach(button=>button.addEventListener('click',()=>setTierSelection(button)));
+  const defaultTier=[...tierButtons].find(button=>button.classList.contains('active'))||tierButtons[0];
+  setTierSelection(defaultTier);
+}
 
 document.querySelectorAll('[data-service-card]').forEach(card=>{
   const front=card.querySelector('.service-front');
