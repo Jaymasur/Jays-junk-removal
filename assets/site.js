@@ -31,8 +31,12 @@ const topTier=document.querySelector('#topTier');
 const topPrice=document.querySelector('#topPrice');
 const topDetail=document.querySelector('#topDetail');
 tierButtons.forEach(button=>button.addEventListener('click',()=>{
-  tierButtons.forEach(item=>item.classList.remove('active'));
+  tierButtons.forEach(item=>{
+    item.classList.remove('active');
+    item.setAttribute('aria-pressed','false');
+  });
   button.classList.add('active');
+  button.setAttribute('aria-pressed','true');
   const tier=button.dataset.tier;
   const price=button.dataset.price;
   selectedTier.textContent=tier;
